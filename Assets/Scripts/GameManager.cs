@@ -40,7 +40,11 @@ public class GameManager : MonoBehaviour
 	{
 		//Call the SetupScene function of the BoardManager script, pass it current level number.
 		boardScript.SetupScene(level);
+	}
 
+	public void GameOver()
+	{
+		enabled = false;
 	}
 
 
