@@ -19,6 +19,19 @@ public class BoardCreator : MonoBehaviour
 	public GameObject[] floorTiles;                           // An array of floor tile prefabs.
 	public GameObject[] wallTiles;                            // An array of wall tile prefabs.
 	public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
+	public GameObject[] nwCorner;
+	public GameObject[] neCorner;
+	public GameObject[] swCorner;
+	public GameObject[] seCorner;
+	public GameObject[] bnwCorner;
+	public GameObject[] bneCorner;
+	public GameObject[] bswCorner;
+	public GameObject[] bseCorner;
+	public GameObject[] westWall;
+	public GameObject[] northWall;
+	public GameObject[] eastWall;
+	public GameObject[] southWall;
+	public GameObject[] blockOff;
 	public GameObject player;
 
 	private TileType[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
@@ -172,13 +185,118 @@ public class BoardCreator : MonoBehaviour
 			for (int j = 0; j < tiles[i].Length; j++)
 			{
 				// ... and instantiate a floor tile for it.
-				InstantiateFromArray (floorTiles, i, j);
+				if (tiles[i][j] != TileType.Wall) {
+					InstantiateFromArray (floorTiles, i, j);
+				}
 
 				// If the tile type is Wall...
-				if (tiles[i][j] == TileType.Wall)
-				{
+				if (tiles[i][j] == TileType.Wall) {
+					bool north = true;
+					bool south = true;
+					bool east = true;
+					bool west = true;
+					bool ne;
+					bool nw;
+					bool se;
+					bool sw;
+					//west
+					if (i == 0) {
+						west = true;	
+					} else {
+						west = tiles[i - 1][j] == TileType.Wall;
+					}
+					//east
+					if (i == tiles.Length - 1) {
+						east = true;	
+					} else {
+						east = tiles[i + 1][j] == TileType.Wall;
+					}
+					//south
+					if (j == 0) {
+						south = true;
+					} else {
+						south = tiles[i][j - 1] == TileType.Wall;
+					}
+					//north
+					if (j == tiles.Length - 1) {
+						north = true;
+					} else {
+						north = tiles[i][j + 1] == TileType.Wall;
+					}
+					//sw
+					if ((i == 0) || (j == 0)) {
+						sw = false;
+					} else {
+						sw = tiles [i - 1] [j - 1] != TileType.Wall;
+					}
+					//se
+					if ((i == tiles.Length - 1) || (j == 0)) {
+						se = false;
+					} else {
+						se = tiles [i + 1] [j - 1] != TileType.Wall;
+					}
+					//nw
+					if ((i == 0) || (j == tiles.Length - 1)) {
+						nw = false;
+					} else {
+						nw = tiles[i - 1][j + 1] != TileType.Wall;
+					}
+					//ne
+					if ((i == tiles.Length - 1) || (j == tiles.Length - 1)) {
+						ne = false;
+					} else {
+						ne = tiles[i + 1][j + 1] != TileType.Wall;
+					}
+						
 					// ... instantiate a wall over the top.
-					InstantiateFromArray (wallTiles, i, j);
+					if (!west && east && north && south) {
+						InstantiateFromArray(westWall, i, j);
+					}
+					else if (west && !east && north && south) {
+						InstantiateFromArray(eastWall, i, j);
+					}
+					else if (west && east && !north && south) {
+						InstantiateFromArray (northWall, i, j);
+					}
+					else if (west && east && !north && south) {
+						InstantiateFromArray (northWall, i, j);
+					}
+					else if (west && east && north && !south) {
+						InstantiateFromArray(southWall, i, j);
+					}
+					else if (west && east && north && !south) {
+						InstantiateFromArray (southWall, i, j);
+					}
+					else if (west && !east && north && !south) {
+						InstantiateFromArray (seCorner, i, j);
+					}
+					else if (!west && east && north && !south) {
+						InstantiateFromArray (swCorner, i, j);
+					}
+					else if (!west && east && !north && south) {
+						InstantiateFromArray (nwCorner, i, j);
+					}
+					else if (west && !east && !north && south) {
+						InstantiateFromArray (neCorner, i, j);
+					}
+					else if (west && east && north && south) {
+						if (nw) {
+							InstantiateFromArray (bnwCorner, i, j);
+						}
+						else if (ne) {
+							InstantiateFromArray (bneCorner, i, j);
+						}
+						else if (se) {
+							InstantiateFromArray (bseCorner, i, j);
+						} else if (sw) {
+							InstantiateFromArray (bswCorner, i, j);
+						} else {
+							InstantiateFromArray (wallTiles, i, j);
+						}
+					}
+					else {
+						InstantiateFromArray (blockOff, i, j);
+					}
 				}
 			}
 		}
