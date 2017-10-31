@@ -20,6 +20,7 @@ public class BoardCreator : MonoBehaviour
 	public GameObject[] wallTiles;                            // An array of wall tile prefabs.
 	public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
 	public GameObject player;
+	public GameObject enemy;
 
 	private TileType[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
 	private Room[] rooms;                                     // All the rooms that are created for this board.
