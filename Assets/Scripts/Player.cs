@@ -6,11 +6,14 @@ public class Player : MonoBehaviour {
 
 	public float speed = 3;
 	protected Animator anim;
+	private int exp = 0;
+	private int level = 1;
+	Health playerHP;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
-		
+		playerHP = GetComponent<Health> ();
 	}
 	
 	// Update is called once per frame
@@ -53,5 +56,20 @@ public class Player : MonoBehaviour {
 			playerDirection.y = -1;
 		}
 		GetComponent<Rigidbody2D>().velocity = playerDirection.normalized * speed;
+	}
+
+	private void gainExp(int amount)
+	{
+		exp += amount;
+		if (exp <= 100) 
+		{
+			levelUp ();
+		}
+	}
+
+	private void levelUp()
+	{
+		level += 1;
+		exp -= 100;
 	}
 }
