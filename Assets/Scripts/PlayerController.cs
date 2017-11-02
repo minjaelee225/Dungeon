@@ -65,6 +65,18 @@ public class PlayerController : MonoBehaviour
 
 			pos += (Vector3.left) / 1;
 		}
+		else if (Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			Debug.Log ("hello");
+			Attack attack = new Attack(5, 1, "Melee");
+			Collider2D[] hitObjects = Physics2D.OverlapCircleAll (transform.position, 0.75f);
+			for (int i = 0; i < hitObjects.Length; i++) {
+				if (hitObjects [i].gameObject.tag == "Hitbox") {
+					hitObjects [i].gameObject.SendMessage ("TakeDamage", attack, SendMessageOptions.DontRequireReceiver); 
+				}
+			}
+
+		}
 
 		transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
 	}
@@ -95,4 +107,34 @@ public class PlayerController : MonoBehaviour
 		pos = away;
 
 	}
+
+	public struct Attack {
+
+		private int damage;
+		private int range;
+		private string name;
+
+		public Attack(int damage, int range, string name) {
+			this.damage = damage;
+			this.range = range;
+			this.name = name;
+		}
+
+		public int getDamage()
+		{
+			return damage;
+		}
+
+		public int getRange()
+		{
+			return range;
+		}
+
+		public string getName()
+		{
+			return name;
+		}
+
+	}
+
 }
