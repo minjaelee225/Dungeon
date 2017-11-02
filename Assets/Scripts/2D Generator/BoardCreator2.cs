@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BoardCreator : MonoBehaviour
+public class BoardCreator2 : MonoBehaviour
 {
 	// The type of tile that will be laid in a specific position.
 	public enum TileType
@@ -32,7 +32,6 @@ public class BoardCreator : MonoBehaviour
 	public GameObject[] eastWall;
 	public GameObject[] southWall;
 	public GameObject[] blockOff;
-	public GameObject player;
 	public GameObject enemy;
 	public int enemyCount;
 	public GameObject exit;
@@ -49,7 +48,7 @@ public class BoardCreator : MonoBehaviour
 		// Create the board holder.
 		boardHolder = new GameObject("BoardHolder");
 
-		positions = new Vector3[2 + enemyCount];
+		positions = new Vector3[1 + enemyCount];
 
 		SetupTilesArray ();
 
@@ -62,7 +61,6 @@ public class BoardCreator : MonoBehaviour
 		InstantiateOuterWalls ();
 		InstantiateExit ();
 		InstantiateEnemy ();
-		InstantiatePlayer ();
 	}
 
 
@@ -253,7 +251,7 @@ public class BoardCreator : MonoBehaviour
 					} else {
 						ne = tiles[i + 1][j + 1] != TileType.Wall;
 					}
-						
+
 					// ... instantiate a wall over the top.
 					if (!west && east && north && south) {
 						InstantiateFromArray(westWall, i, j);
@@ -358,18 +356,6 @@ public class BoardCreator : MonoBehaviour
 		}
 	}
 
-	void InstantiatePlayer()
-	{
-		int i = Random.Range (0, rooms.Length);
-		Vector3 playerPos = new Vector3 (rooms[i].xPos, rooms[i].yPos, 0);
-		while (find (positions, playerPos)) 
-		{
-			i = Random.Range (0, rooms.Length);
-			playerPos = new Vector3 (rooms[i].xPos, rooms[i].yPos, 0);
-		}
-		Instantiate(player, playerPos, Quaternion.identity);
-	}
-
 	void InstantiateExit()
 	{
 		int i = Random.Range (0, rooms.Length);
@@ -393,7 +379,7 @@ public class BoardCreator : MonoBehaviour
 			positions[i + 1] = Pos;
 		}
 	}
-				
+
 
 	bool find(Vector3[] objects, Vector3 pos) 
 	{
@@ -401,11 +387,11 @@ public class BoardCreator : MonoBehaviour
 		for (int i = 0; i < objects.Length; i++) {
 			Vector3 location = objects [i];
 			if (pos.Equals (location))
-				{
-					retval = true;
-					break;
-				}
+			{
+				retval = true;
+				break;
 			}
+		}
 		return retval;
 	}
 

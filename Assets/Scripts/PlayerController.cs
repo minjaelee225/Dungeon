@@ -11,12 +11,20 @@ public class PlayerController : MonoBehaviour
 	Vector3 old;
 	Transform tr;
 	private Animator anim;
+	private static bool playerExists;
 
 	void Start()
 	{
 		pos = transform.position;
 		tr = transform;
 		anim = GetComponent<Animator>();
+		if (!playerExists) {
+			playerExists = true;
+			DontDestroyOnLoad (gameObject);
+		} else {
+			Destroy (gameObject);
+		}
+
 	}
 
 	void FixedUpdate()
