@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 	public float speed = 2.0f;
 	Vector3 pos;
 	Vector3 old;
+	Vector3 oold;
 	Transform tr;
 	private Animator anim;
 	private static bool playerExists;
@@ -36,7 +37,11 @@ public class PlayerController : MonoBehaviour
 			anim.ResetTrigger("rwalk");
 			anim.ResetTrigger("fwalk");
 
+			oold = old;
+			old = pos;
+
 			pos += (Vector3.up) / 1;
+	
 		}
 		else if (Input.GetKey(KeyCode.RightArrow) && tr.position == pos)
 		{
@@ -45,7 +50,11 @@ public class PlayerController : MonoBehaviour
 			anim.ResetTrigger("lwalk");
 			anim.ResetTrigger("fwalk");
 
+			oold = old;
+			old = pos;
+
 			pos += (Vector3.right) / 1;
+		
 		}
 		else if (Input.GetKey(KeyCode.DownArrow) && tr.position == pos)
 		{
@@ -54,7 +63,11 @@ public class PlayerController : MonoBehaviour
 			anim.ResetTrigger("rwalk");
 			anim.ResetTrigger("lwalk");
 
+			oold = old;
+			old = pos;
+
 			pos += (Vector3.down) / 1;
+		
 		}
 		else if (Input.GetKey(KeyCode.LeftArrow) && tr.position == pos)
 		{
@@ -62,6 +75,9 @@ public class PlayerController : MonoBehaviour
 			anim.ResetTrigger("bwalk");
 			anim.ResetTrigger("rwalk");
 			anim.ResetTrigger("fwalk");
+
+			oold = old;
+			old = pos;
 
 			pos += (Vector3.left) / 1;
 		}
@@ -81,8 +97,14 @@ public class PlayerController : MonoBehaviour
 		transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
 	}
 
-	void OnCollisionEnter2D()
+	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
+		if (collidedObject.gameObject.tag == "Wall") {
+			pos = old;
+		}
+	
+
+		/**
 		float x = transform.position.x;
 		float y = transform.position.y;
 		float z = transform.position.z;
@@ -105,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
 		Vector3 away = new Vector3(x, y, z);
 		pos = away;
-
+**/
 	}
 
 	public struct Attack {
