@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysteryDungeon-master", "Assembly-CSharp.csproj", "{ED01009F-A63F-367C-E07C-F61D056389AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mysterydungeon-master", "Assembly-CSharp.csproj", "{AB69FB0E-B164-4CB2-0B3F-0D951AEE48ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED01009F-A63F-367C-E07C-F61D056389AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED01009F-A63F-367C-E07C-F61D056389AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED01009F-A63F-367C-E07C-F61D056389AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED01009F-A63F-367C-E07C-F61D056389AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB69FB0E-B164-4CB2-0B3F-0D951AEE48ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB69FB0E-B164-4CB2-0B3F-0D951AEE48ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB69FB0E-B164-4CB2-0B3F-0D951AEE48ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB69FB0E-B164-4CB2-0B3F-0D951AEE48ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

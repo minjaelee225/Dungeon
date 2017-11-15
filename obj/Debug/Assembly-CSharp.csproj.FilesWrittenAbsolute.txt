@@ -67,3 +67,7 @@
 /Users/Vera/Desktop/Games/DungeonCrawler/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/Vera/Desktop/Games/DungeonCrawler/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/Vera/Desktop/Games/DungeonCrawler/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/MinJaeLee/gamedev/Mysterydungeon-master/obj/Debug/Assembly-CSharp.dll
+/Users/MinJaeLee/gamedev/Mysterydungeon-master/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/MinJaeLee/gamedev/Mysterydungeon-master/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/MinJaeLee/gamedev/Mysterydungeon-master/Temp/bin/Debug/Assembly-CSharp.dll

@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
 			pos += (Vector3.left) / 1;
 		}
-		else if (Input.GetKeyDown(KeyCode.Mouse0))
+		else if (Input.GetKeyDown(KeyCode.Space))
 		{
 			Debug.Log ("hello");
 			Attack attack = new Attack(5, 1, "Melee");
