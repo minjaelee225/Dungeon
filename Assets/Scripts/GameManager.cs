@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	public int level;
-	BoardCreator x;
+	public int level = 1;
+
 	// Use this for initialization
-	void Start () {
-		level = 1;
+	void Start () 
+	{
+
 	}
 	
 	// Update is called once per frame

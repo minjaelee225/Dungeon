@@ -8,7 +8,7 @@ public class LoadNewArea : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gm = GetComponent<GameManager> ();
+		gm = FindObjectOfType<GameManager> ();
 	}
 	
 	// Update is called once per frame
@@ -19,12 +19,12 @@ public class LoadNewArea : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag == "Player") 
 		{
+			gm.level += 1;
 			if (gm.level % 5 == 0) {
 				SceneManager.LoadScene (2);
 			} else {
 				SceneManager.LoadScene (1);
 			}
-			gm.level += 1;
 		}
 	}
 }
