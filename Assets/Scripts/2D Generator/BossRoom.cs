@@ -32,7 +32,6 @@ public class BossRoom : MonoBehaviour
 	public GameObject[] blockOff;
 	public GameObject player;
 	public GameObject boss;
-	public int bossCount;
 
 	private TileType[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
 	private Room[] rooms;                                     // All the rooms that are created for this board.
@@ -45,7 +44,7 @@ public class BossRoom : MonoBehaviour
 		// Create the board holder.
 		boardHolder = new GameObject("BoardHolder");
 
-		positions = new Vector3[2 + bossCount];
+		positions = new Vector3[3];
 
 		SetupTilesArray ();
 
@@ -289,13 +288,13 @@ public class BossRoom : MonoBehaviour
 
 	void InstantiatePlayer()
 	{
-		Vector3 playerPos = new Vector3 (rooms[0].xPos + 10, rooms[0].yPos, 0);
+		Vector3 playerPos = new Vector3 (rooms[0].xPos + 7, rooms[0].yPos + 2, 0);
 		Instantiate(player, playerPos, Quaternion.identity);
 	}
 
 	void InstantiateBoss()
 	{
-		Vector3 Pos = new Vector3 (rooms[0].xPos + 10, rooms[0].yPos + 10, 0);
+		Vector3 Pos = new Vector3 (rooms[0].xPos + 7, rooms[0].yPos + 7, 0);
 		Instantiate(boss, Pos, Quaternion.identity);
 	}
 
