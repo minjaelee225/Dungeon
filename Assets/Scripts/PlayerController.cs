@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 	Vector3 pos;
 	Vector3 old;
 	Vector3 oold;
+	public int level = 1;
 	Transform tr;
 	private Animator anim;
 	private static bool playerExists;

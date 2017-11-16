@@ -41,12 +41,14 @@ public class BoardCreator2 : MonoBehaviour
 	private Corridor[] corridors;                             // All the corridors that connect the rooms.
 	private GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
 	private Vector3[] positions;
-
+	GameManager gm;
 
 	private void Start ()
 	{
 		// Create the board holder.
 		boardHolder = new GameObject("BoardHolder");
+
+		gm = FindObjectOfType<GameManager> ();
 
 		positions = new Vector3[1 + enemyCount];
 
