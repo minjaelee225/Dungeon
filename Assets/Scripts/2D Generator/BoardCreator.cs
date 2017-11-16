@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using UnityEngine;
 
 public class BoardCreator : MonoBehaviour
@@ -18,7 +18,13 @@ public class BoardCreator : MonoBehaviour
 	public IntRange corridorLength = new IntRange (6, 10);    // The range of lengths corridors between rooms can have.
 	public GameObject[] floorTiles;                           // An array of floor tile prefabs.
 	public GameObject[] wallTiles;                            // An array of wall tile prefabs.
-	public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
+	public GameObject[] outerWallTiles;  					  // An array of outer wall tile prefabs.
+	public GameObject[] nStop;
+	public GameObject[] sStop;
+	public GameObject[] eStop;
+	public GameObject[] wStop;
+	public GameObject[] vDoublewall;
+	public GameObject[] hDoublewall;
 	public GameObject[] nwCorner;
 	public GameObject[] neCorner;
 	public GameObject[] swCorner;
@@ -253,25 +259,31 @@ public class BoardCreator : MonoBehaviour
 					} else {
 						ne = tiles[i + 1][j + 1] != TileType.Wall;
 					}
-						
+
 					// ... instantiate a wall over the top.
 					if (!west && east && north && south) {
 						InstantiateFromArray(westWall, i, j);
 					}
+					else if (west && !east && !north && !south) {
+						InstantiateFromArray(eStop, i, j);
+					}
 					else if (west && !east && north && south) {
 						InstantiateFromArray(eastWall, i, j);
 					}
-					else if (west && east && !north && south) {
-						InstantiateFromArray (northWall, i, j);
+					else if (!west && east && !north && !south) {
+						InstantiateFromArray(wStop, i, j);
 					}
 					else if (west && east && !north && south) {
 						InstantiateFromArray (northWall, i, j);
+					}
+					else if (!west && !east && !north && south) {
+						InstantiateFromArray (nStop, i, j);
 					}
 					else if (west && east && north && !south) {
 						InstantiateFromArray(southWall, i, j);
 					}
-					else if (west && east && north && !south) {
-						InstantiateFromArray (southWall, i, j);
+					else if (!west && !east && north && !south) {
+						InstantiateFromArray (sStop, i, j);
 					}
 					else if (west && !east && north && !south) {
 						InstantiateFromArray (seCorner, i, j);
@@ -284,6 +296,12 @@ public class BoardCreator : MonoBehaviour
 					}
 					else if (west && !east && !north && south) {
 						InstantiateFromArray (neCorner, i, j);
+					}
+					else if (west && east && !north && !south) {
+						InstantiateFromArray (hDoublewall, i, j);
+					}
+					else if (!west && !east && north && south) {
+						InstantiateFromArray (vDoublewall, i, j);
 					}
 					else if (west && east && north && south) {
 						if (nw) {
@@ -393,7 +411,7 @@ public class BoardCreator : MonoBehaviour
 			positions[i + 1] = Pos;
 		}
 	}
-				
+
 
 	bool find(Vector3[] objects, Vector3 pos) 
 	{
@@ -401,11 +419,11 @@ public class BoardCreator : MonoBehaviour
 		for (int i = 0; i < objects.Length; i++) {
 			Vector3 location = objects [i];
 			if (pos.Equals (location))
-				{
-					retval = true;
-					break;
-				}
+			{
+				retval = true;
+				break;
 			}
+		}
 		return retval;
 	}
 

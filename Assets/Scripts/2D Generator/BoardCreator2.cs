@@ -19,6 +19,12 @@ public class BoardCreator2 : MonoBehaviour
 	public GameObject[] floorTiles;                           // An array of floor tile prefabs.
 	public GameObject[] wallTiles;                            // An array of wall tile prefabs.
 	public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
+	public GameObject[] nStop;
+	public GameObject[] sStop;
+	public GameObject[] eStop;
+	public GameObject[] wStop;
+	public GameObject[] vDoublewall;
+	public GameObject[] hDoublewall;
 	public GameObject[] nwCorner;
 	public GameObject[] neCorner;
 	public GameObject[] swCorner;
@@ -258,20 +264,26 @@ public class BoardCreator2 : MonoBehaviour
 					if (!west && east && north && south) {
 						InstantiateFromArray(westWall, i, j);
 					}
+					else if (west && !east && !north && !south) {
+						InstantiateFromArray(eStop, i, j);
+					}
 					else if (west && !east && north && south) {
 						InstantiateFromArray(eastWall, i, j);
 					}
-					else if (west && east && !north && south) {
-						InstantiateFromArray (northWall, i, j);
+					else if (!west && east && !north && !south) {
+						InstantiateFromArray(wStop, i, j);
 					}
 					else if (west && east && !north && south) {
 						InstantiateFromArray (northWall, i, j);
+					}
+					else if (!west && !east && !north && south) {
+						InstantiateFromArray (nStop, i, j);
 					}
 					else if (west && east && north && !south) {
 						InstantiateFromArray(southWall, i, j);
 					}
-					else if (west && east && north && !south) {
-						InstantiateFromArray (southWall, i, j);
+					else if (!west && !east && north && !south) {
+						InstantiateFromArray (sStop, i, j);
 					}
 					else if (west && !east && north && !south) {
 						InstantiateFromArray (seCorner, i, j);
@@ -284,6 +296,12 @@ public class BoardCreator2 : MonoBehaviour
 					}
 					else if (west && !east && !north && south) {
 						InstantiateFromArray (neCorner, i, j);
+					}
+					else if (west && east && !north && !south) {
+						InstantiateFromArray (hDoublewall, i, j);
+					}
+					else if (!west && !east && north && south) {
+						InstantiateFromArray (vDoublewall, i, j);
 					}
 					else if (west && east && north && south) {
 						if (nw) {
