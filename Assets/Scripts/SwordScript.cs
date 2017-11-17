@@ -26,5 +26,9 @@ public class SwordScript : MonoBehaviour {
 			collider.gameObject.GetComponent<Health> ().takeDamage (damage);
 			Destroy (gameObject);
 		}
+
+		if (collider.gameObject.tag == "Wall" || collider == null) {
+			Destroy (gameObject);
+		}
 	}
 }

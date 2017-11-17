@@ -16,8 +16,10 @@ public class PlayerController : MonoBehaviour
 	private static bool playerExists;
 	public GameObject swordObject;
 	public GameObject fireballObject;
+	int atk;
+	int magic;
 
-	//Stats
+	//HP
 	private int currentHP;
 	private int maxHP;
 
@@ -41,12 +43,12 @@ public class PlayerController : MonoBehaviour
 		up = false;
 		down = true;
 
-		if (!playerExists) {
+		/**if (!playerExists) {
 			playerExists = true;
 			DontDestroyOnLoad (gameObject);
 		} else {
 			Destroy (gameObject);
-		}
+		}*/
 
 	}
 
@@ -59,6 +61,9 @@ public class PlayerController : MonoBehaviour
 		if (currentHP <= 0) {
 			Die ();
 		}
+
+		atk = GetComponent<PlayerStats> ().atk;
+		magic = GetComponent<PlayerStats> ().magic;
 	}
 
 	void FixedUpdate()
@@ -153,7 +158,7 @@ public class PlayerController : MonoBehaviour
 			} else if (down) {
 				sword.transform.position = pos + Vector3.down;
 			}
-			sword.GetComponent<SwordScript> ().init (2);
+			sword.GetComponent<SwordScript> ().init (atk);
 
 		}
 
@@ -162,13 +167,13 @@ public class PlayerController : MonoBehaviour
 			GameObject fireball = Instantiate (fireballObject);
 			fireball.transform.position = pos;
 			if (left) {
-				fireball.GetComponent<FireBallScript> ().init (4, new Vector2(-1, 0));
+				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(-1, 0));
 			} else if (right) {
-				fireball.GetComponent<FireBallScript> ().init (4, new Vector2(1, 0));
+				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(1, 0));
 			} else if (up) {
-				fireball.GetComponent<FireBallScript> ().init (4, new Vector2(0, 1));
+				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(0, 1));
 			} else if (down) {
-				fireball.GetComponent<FireBallScript> ().init (4, new Vector2(0, -1));
+				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(0, -1));
 			}
 
 		}

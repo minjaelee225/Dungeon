@@ -29,5 +29,9 @@ public class FireBallScript : MonoBehaviour {
 			collider.gameObject.GetComponent<Health> ().takeDamage (damage);
 			Destroy (gameObject);
 		}
+
+		if (collider.gameObject.tag == "Wall") {
+			Destroy (gameObject);
+		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class BoardCreator : MonoBehaviour
@@ -38,8 +38,10 @@ public class BoardCreator : MonoBehaviour
 	public GameObject[] eastWall;
 	public GameObject[] southWall;
 	public GameObject[] blockOff;
+	public GameObject[] items;
+	public int itemCount;
 	public GameObject player;
-	public GameObject enemy;
+	public GameObject[] enemy;
 	public int enemyCount;
 	public GameObject exit;
 
@@ -55,7 +57,7 @@ public class BoardCreator : MonoBehaviour
 		// Create the board holder.
 		boardHolder = new GameObject("BoardHolder");
 
-		positions = new Vector3[2 + enemyCount];
+		positions = new Vector3[2 + enemyCount + itemCount];
 
 		SetupTilesArray ();
 
@@ -68,6 +70,7 @@ public class BoardCreator : MonoBehaviour
 		InstantiateOuterWalls ();
 		InstantiateExit ();
 		InstantiateEnemy ();
+		InstantiateItems ();
 		InstantiatePlayer ();
 	}
 
@@ -400,6 +403,7 @@ public class BoardCreator : MonoBehaviour
 	{
 		for (int i = 0; i < enemyCount; i++)
 		{
+			GameObject blob = enemy[Random.Range (0, enemy.Length)];
 			int j = Random.Range (0, rooms.Length);
 			Vector3 Pos = new Vector3 (rooms[j].xPos, rooms[j].yPos, 0);
 			while(find (positions, Pos)) 
@@ -407,8 +411,25 @@ public class BoardCreator : MonoBehaviour
 				j = Random.Range (0, rooms.Length);
 				Pos = new Vector3 (rooms [j].xPos, rooms [j].yPos, 0);
 			}
-			Instantiate(enemy, Pos, Quaternion.identity);
+			Instantiate(blob, Pos, Quaternion.identity);
 			positions[i + 1] = Pos;
+		}
+	}
+
+	void InstantiateItems()
+	{
+		for (int i = 0; i < itemCount; i++)
+		{
+			GameObject item = items[Random.Range (0, items.Length)];
+			int j = Random.Range (0, rooms.Length);
+			Vector3 Pos = new Vector3 (rooms[j].xPos, rooms[j].yPos, 0);
+			while(find (positions, Pos)) 
+			{
+				j = Random.Range (0, rooms.Length);
+				Pos = new Vector3 (rooms [j].xPos, rooms [j].yPos, 0);
+			}
+			Instantiate(item, Pos, Quaternion.identity);
+			positions[i + enemyCount + 1] = Pos;
 		}
 	}
 
