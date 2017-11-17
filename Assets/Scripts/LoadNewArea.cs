@@ -21,7 +21,7 @@ public class LoadNewArea : MonoBehaviour {
 		if (other.gameObject.tag == "Player") 
 		{
 			gm.level += 1;
-			if (gm.level % 5 == 0) {
+			if (gm.level % 3 == 0) {
 				SceneManager.LoadScene (2);
 			} else {
 				SceneManager.LoadScene (0);

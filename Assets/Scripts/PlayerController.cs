@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
 			pos += (Vector3.left) / 1;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		else if (Input.GetKeyDown(KeyCode.Space))
 		{
 			/**Debug.Log ("hello");
 			Attack attack = new Attack(5, 1, "Melee");
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
 		}
 
-		if (Input.GetKeyDown(KeyCode.A))
+		else if (Input.GetKeyDown(KeyCode.A))
 		{
 			GameObject fireball = Instantiate (fireballObject);
 			fireball.transform.position = pos;

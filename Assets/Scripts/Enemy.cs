@@ -4,37 +4,65 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-	public float speed = 10f;
+	public float speed = 2.0f;
 	public float attack1Range = 0.1f;
 	public int attack1Damage = 1;
 	public float timeBetweenAttacks;
 	BoxCollider2D territory;
 	GameObject player;
 	bool playerInTerritory;
+	Vector3[] movement;
 
-
+	Vector3 pos;
+	Vector3 old;
+	Vector3 oold;
+	Transform tr;
 
 	// Use this for initialization
 	void Start ()
 	{
+		pos = transform.position;
+		tr = transform;
+
 		player = GameObject.FindGameObjectWithTag ("Player");
 		territory = GetComponent<BoxCollider2D> ();
 		playerInTerritory = false;
 		Rest ();
+
+		movement = new Vector3[4];
 	}
 
 	// Update is called once per frame
-	void Update ()
+	/*void Update ()
 	{
-		if (playerInTerritory)
-		{
+		if (playerInTerritory) {
 			MoveToPlayer ();
-		}
-
-		else
-		{
+		} else {
 			Rest ();
 		}
+	}*/
+
+	void FixedUpdate()
+	{
+		oold = old;
+		old = pos;
+		if (Input.GetKey(KeyCode.UpArrow) && tr.position == pos)
+		{
+			Move();
+		}
+		else if (Input.GetKey(KeyCode.RightArrow) && tr.position == pos)
+		{
+			Move();
+		}
+		else if (Input.GetKey(KeyCode.DownArrow) && tr.position == pos)
+		{
+			Move();
+		}
+		else if (Input.GetKey(KeyCode.LeftArrow) && tr.position == pos)
+		{
+			Move();
+		}
+		transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
 	}
 
 	public void MoveToPlayer ()
@@ -49,10 +77,26 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+	public void Move ()
+	{
+		Vector3 down = Vector3.down/1;
+		Vector3 up = Vector3.up/1;
+		Vector3 left = Vector3.left/1;
+		Vector3 right = Vector3.right/1;
+		movement [0] = down;
+		movement [1] = up;
+		movement [2] = left;
+		movement [3] = right;
+		int i = Random.Range (0, movement.Length);
+		pos += movement [i];
+
+	}
+
 	public void Rest ()
 	{
 
 	}
+
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		Debug.Log ("Hello I am here");
@@ -67,6 +111,20 @@ public class Enemy : MonoBehaviour {
 		if (other.gameObject == player) 
 		{
 			playerInTerritory = false;
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D collidedObject)
+	{
+		if (collidedObject.gameObject.tag == "Wall") {
+			pos = old;
+		}
+
+		if (collidedObject.gameObject.tag == "Enemy") {
+			pos = old;
+		}
+		if (collidedObject.gameObject.tag == "Player") {
+			pos = old;
 		}
 	}
 }
