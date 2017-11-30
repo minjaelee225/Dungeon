@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class atkItem : Items {
 
+	public AudioClip pickup;
 	private PlayerStats stats;
 
 	void Start () {
@@ -13,6 +14,7 @@ public class atkItem : Items {
 	public override void improveStat()
 	{
 		stats.atk += 2;
+		AudioSource.PlayClipAtPoint (pickup, transform.position);
 	}
 
 }

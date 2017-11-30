@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class defItem : Items {
 
+	public AudioClip pickup;
 	private PlayerStats stats;
 
 	void Start () {
@@ -13,5 +14,6 @@ public class defItem : Items {
 	public override void improveStat()
 	{
 		stats.def += 2;
+		AudioSource.PlayClipAtPoint (pickup, transform.position);
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Items : MonoBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -17,6 +18,7 @@ public class Items : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider) 
 	{
 		if (collider.gameObject.tag == "Player") {
+	
 			improveStat ();
 			Destroy (gameObject);
 		}
