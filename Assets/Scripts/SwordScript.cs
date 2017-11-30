@@ -7,28 +7,31 @@ public class SwordScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-			
+		
 	}
 
 	public void init(int amount)
 	{
 		damage = amount;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+		Destroy (gameObject, 0.7f);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) 
 	{
 		if (collider.gameObject.tag == "Enemy") {
 			collider.gameObject.GetComponent<Health> ().takeDamage (damage);
-			Destroy (gameObject);
+			Destroy (gameObject, 0.7f);
+
 		}
 
-		if (collider.gameObject.tag == "Wall" || collider == null) {
+		if (collider.gameObject.tag == "Wall") {
 			Destroy (gameObject);
 		}
+			
 	}
+
 }

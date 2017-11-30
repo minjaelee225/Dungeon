@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour {
 	{
 		pos = transform.position;
 		tr = transform;
+		oold = old;
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		territory = GetComponent<BoxCollider2D> ();
@@ -44,25 +45,32 @@ public class Enemy : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		oold = old;
-		old = pos;
-		if (Input.GetKey(KeyCode.UpArrow) && tr.position == pos)
+		if (Input.GetKeyDown(KeyCode.UpArrow) && tr.position == pos)
 		{
+			oold = old;
+			old = pos;
 			Move();
 		}
-		else if (Input.GetKey(KeyCode.RightArrow) && tr.position == pos)
+		else if (Input.GetKeyDown(KeyCode.RightArrow) && tr.position == pos)
 		{
+			oold = old;
+			old = pos;
 			Move();
 		}
-		else if (Input.GetKey(KeyCode.DownArrow) && tr.position == pos)
+		else if (Input.GetKeyDown(KeyCode.DownArrow) && tr.position == pos)
 		{
+			oold = old;
+			old = pos;
 			Move();
 		}
-		else if (Input.GetKey(KeyCode.LeftArrow) && tr.position == pos)
+		else if (Input.GetKeyDown(KeyCode.LeftArrow) && tr.position == pos)
 		{
+			oold = old;
+			old = pos;
 			Move();
 		}
 		transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
+
 	}
 
 	public void MoveToPlayer ()
@@ -97,7 +105,7 @@ public class Enemy : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
+	/**void OnTriggerEnter2D (Collider2D other)
 	{
 		Debug.Log ("Hello I am here");
 		if (other.gameObject == player)
@@ -112,7 +120,7 @@ public class Enemy : MonoBehaviour {
 		{
 			playerInTerritory = false;
 		}
-	}
+	}**/
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{

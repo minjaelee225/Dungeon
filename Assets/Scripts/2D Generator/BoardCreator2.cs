@@ -38,25 +38,26 @@ public class BoardCreator2 : MonoBehaviour
 	public GameObject[] eastWall;
 	public GameObject[] southWall;
 	public GameObject[] blockOff;
-	public GameObject enemy;
-	public int enemyCount;
+	public GameObject player;
+	public GameObject[] enemy;
+	public GameObject[] items;
+	private int itemCount;
 	public GameObject exit;
 
 	private TileType[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
 	private Room[] rooms;                                     // All the rooms that are created for this board.
 	private Corridor[] corridors;                             // All the corridors that connect the rooms.
 	private GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
-	private Vector3[] positions;
-	GameManager gm;
+	levelManager lm;
 
 	private void Start ()
 	{
 		// Create the board holder.
 		boardHolder = new GameObject("BoardHolder");
 
-		gm = FindObjectOfType<GameManager> ();
+		lm = FindObjectOfType<levelManager> ();
 
-		positions = new Vector3[1 + enemyCount];
+		itemCount = lm.level * 3;
 
 		SetupTilesArray ();
 
@@ -69,6 +70,8 @@ public class BoardCreator2 : MonoBehaviour
 		InstantiateOuterWalls ();
 		InstantiateExit ();
 		InstantiateEnemy ();
+		InstantiateItems ();
+		InstantiatePlayer ();
 	}
 
 
@@ -379,40 +382,42 @@ public class BoardCreator2 : MonoBehaviour
 	void InstantiateExit()
 	{
 		int i = Random.Range (0, rooms.Length);
-		Vector3 Pos = new Vector3 (rooms[i].xPos, rooms[i].yPos, 0);
-		positions [0] = Pos;
+		int randX = Random.Range (rooms [i].xPos, rooms [i].xPos + rooms [i].roomWidth);
+		int randY = Random.Range (rooms [i].yPos, rooms [i].yPos + rooms [i].roomHeight);
+		Vector3 Pos = new Vector3 (randX, randY, 0);
 		Instantiate(exit, Pos, Quaternion.identity);
 	}
 
 	void InstantiateEnemy()
 	{
-		for (int i = 0; i < enemyCount; i++)
-		{
-			int j = Random.Range (0, rooms.Length);
-			Vector3 Pos = new Vector3 (rooms[j].xPos, rooms[j].yPos, 0);
-			while(find (positions, Pos)) 
-			{
-				j = Random.Range (0, rooms.Length);
-				Pos = new Vector3 (rooms [j].xPos, rooms [j].yPos, 0);
-			}
-			Instantiate(enemy, Pos, Quaternion.identity);
-			positions[i + 1] = Pos;
+		for (int i = 1; i < rooms.Length; i++) {
+			GameObject blob = enemy[Random.Range (0, enemy.Length)];
+			int randX = Random.Range (rooms [i].xPos, rooms [i].xPos + rooms [i].roomWidth);
+			int randY = Random.Range (rooms [i].yPos, rooms [i].yPos + rooms [i].roomHeight);
+			Vector3 pos = new Vector3 (randX, randY, 0);
+			Instantiate (blob, pos, Quaternion.identity);
 		}
 	}
 
-
-	bool find(Vector3[] objects, Vector3 pos) 
+	void InstantiatePlayer()
 	{
-		bool retval = false;
-		for (int i = 0; i < objects.Length; i++) {
-			Vector3 location = objects [i];
-			if (pos.Equals (location))
-			{
-				retval = true;
-				break;
-			}
+		int randX = Random.Range (rooms [0].xPos, rooms [0].xPos + rooms [0].roomWidth);
+		int randY = Random.Range (rooms [0].yPos, rooms [0].yPos + rooms [0].roomHeight);
+		Vector3 playerPos = new Vector3 (randX, randY, 0);
+		Instantiate(player, playerPos, Quaternion.identity);
+	}
+
+	void InstantiateItems()
+	{
+		for (int i = 0; i < itemCount; i++)
+		{
+			GameObject item = items[Random.Range (0, items.Length)];
+			int j = Random.Range (0, rooms.Length);
+			int randX = Random.Range (rooms [j].xPos, rooms [j].xPos + rooms [j].roomWidth);
+			int randY = Random.Range (rooms [j].yPos, rooms [j].yPos + rooms [j].roomHeight);
+			Vector3 Pos = new Vector3 (randX, randY, 0);
+			Instantiate(item, Pos, Quaternion.identity);
 		}
-		return retval;
 	}
 
 

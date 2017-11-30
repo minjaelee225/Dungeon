@@ -23,6 +23,9 @@ public class Health : MonoBehaviour {
 		if (HP <= 0) 
 		{
 			Destroy(gameObject);
+			GameObject.FindObjectOfType<PlayerStats> ().atk += 1;
+			GameObject.FindObjectOfType<PlayerStats> ().magic += 1;
+			GameObject.FindObjectOfType<PlayerStats> ().def += 1;
 		}
 	}
 }

@@ -14,10 +14,17 @@ public class PlayerController : MonoBehaviour
 	Transform tr;
 	private Animator anim;
 	private static bool playerExists;
-	public GameObject swordObject;
-	public GameObject fireballObject;
+	public GameObject swordLeft;
+	public GameObject swordRight;
+	public GameObject swordUp;
+	public GameObject swordDown;
+	public GameObject fireballLeft;
+	public GameObject fireballRight;
+	public GameObject fireballUp;
+	public GameObject fireballDown;
 	int atk;
 	int magic;
+	int def;
 
 	//HP
 	private int currentHP;
@@ -43,13 +50,6 @@ public class PlayerController : MonoBehaviour
 		up = false;
 		down = true;
 
-		/**if (!playerExists) {
-			playerExists = true;
-			DontDestroyOnLoad (gameObject);
-		} else {
-			Destroy (gameObject);
-		}*/
-
 	}
 
 	void Update()
@@ -62,13 +62,14 @@ public class PlayerController : MonoBehaviour
 			Die ();
 		}
 
-		atk = GetComponent<PlayerStats> ().atk;
-		magic = GetComponent<PlayerStats> ().magic;
+		atk = FindObjectOfType<PlayerStats>().atk;
+		magic = FindObjectOfType<PlayerStats> ().magic;
+		def = FindObjectOfType<PlayerStats> ().def;
 	}
 
 	void FixedUpdate()
 	{
-		if (Input.GetKey(KeyCode.UpArrow) && tr.position == pos)
+		if (Input.GetKeyDown(KeyCode.UpArrow) && tr.position == pos)
 		{
 			anim.SetTrigger ("bwalk");
 			anim.ResetTrigger("lwalk");
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
 			pos += (Vector3.up) / 1;
 	
 		}
-		else if (Input.GetKey(KeyCode.RightArrow) && tr.position == pos)
+		else if (Input.GetKeyDown(KeyCode.RightArrow) && tr.position == pos)
 		{
 			anim.SetTrigger ("rwalk");
 			anim.ResetTrigger("bwalk");
@@ -102,7 +103,7 @@ public class PlayerController : MonoBehaviour
 			pos += (Vector3.right) / 1;
 		
 		}
-		else if (Input.GetKey(KeyCode.DownArrow) && tr.position == pos)
+		else if (Input.GetKeyDown(KeyCode.DownArrow) && tr.position == pos)
 		{
 			anim.SetTrigger ("fwalk");
 			anim.ResetTrigger("bwalk");
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
 			pos += (Vector3.down) / 1;
 		
 		}
-		else if (Input.GetKey(KeyCode.LeftArrow) && tr.position == pos)
+		else if (Input.GetKeyDown(KeyCode.LeftArrow) && tr.position == pos)
 		{
 			anim.SetTrigger ("lwalk");
 			anim.ResetTrigger("bwalk");
@@ -140,40 +141,48 @@ public class PlayerController : MonoBehaviour
 
 		else if (Input.GetKeyDown(KeyCode.Space))
 		{
-			/**Debug.Log ("hello");
-			Attack attack = new Attack(5, 1, "Melee");
-			Collider2D[] hitObjects = Physics2D.OverlapCircleAll (transform.position, 0.75f);
-			for (int i = 0; i < hitObjects.Length; i++) {
-				if (hitObjects [i].gameObject.tag == "Hitbox") {
-					hitObjects [i].gameObject.SendMessage ("TakeDamage", attack, SendMessageOptions.DontRequireReceiver); 
-				}
-			}*/
-			GameObject sword = Instantiate (swordObject);
 			if (left) {
-				sword.transform.position = pos + Vector3.left;
+				GameObject swordL = Instantiate (swordLeft);
+				swordL.transform.position = pos + Vector3.left;
+				swordL.GetComponent<SwordScript> ().init (atk);
 			} else if (right) {
-				sword.transform.position = pos + Vector3.right;
+				GameObject swordR = Instantiate (swordRight);
+				swordR.transform.position = pos + Vector3.right;
+				swordR.GetComponent<SwordScript> ().init (atk);
 			} else if (up) {
-				sword.transform.position = pos + Vector3.up;
+				GameObject swordU = Instantiate (swordUp);
+				swordU.transform.position = pos + Vector3.up;
+				swordU.GetComponent<SwordScript> ().init (atk);
 			} else if (down) {
-				sword.transform.position = pos + Vector3.down;
+				GameObject swordD = Instantiate (swordDown);
+				swordD.transform.position = pos + Vector3.down;
+				swordD.GetComponent<SwordScript> ().init (atk);
 			}
-			sword.GetComponent<SwordScript> ().init (atk);
 
 		}
 
 		else if (Input.GetKeyDown(KeyCode.A))
 		{
-			GameObject fireball = Instantiate (fireballObject);
-			fireball.transform.position = pos;
 			if (left) {
-				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(-1, 0));
+				GameObject fireL = Instantiate (fireballLeft);
+				enhanceFire (fireL);
+				fireL.transform.position = pos;
+				fireL.GetComponent<FireBallScript> ().init (magic, new Vector2(-1, 0));
 			} else if (right) {
-				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(1, 0));
+				GameObject fireR = Instantiate (fireballRight);
+				enhanceFire (fireR);
+				fireR.transform.position = pos;
+				fireR.GetComponent<FireBallScript> ().init (magic, new Vector2(1, 0));
 			} else if (up) {
-				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(0, 1));
+				GameObject fireU = Instantiate (fireballUp);
+				enhanceFire (fireU);
+				fireU.transform.position = pos;
+				fireU.GetComponent<FireBallScript> ().init (magic, new Vector2(0, 1));
 			} else if (down) {
-				fireball.GetComponent<FireBallScript> ().init (magic, new Vector2(0, -1));
+				GameObject fireD = Instantiate (fireballDown);
+				enhanceFire (fireD);
+				fireD.transform.position = pos;
+				fireD.GetComponent<FireBallScript> ().init (magic, new Vector2(0, -1));
 			}
 
 		}
@@ -187,6 +196,24 @@ public class PlayerController : MonoBehaviour
 		SceneManager.LoadScene (0);
 	}
 
+	void enhanceFire(GameObject fire)
+	{
+		if (magic >= 10 && magic < 20) {
+			fire.GetComponent<SpriteRenderer> ().color = Color.black;
+		}
+		if (magic >= 20 && magic < 35) {
+			fire.GetComponent<SpriteRenderer> ().color = Color.magenta;
+		}
+		if (magic >= 35 && magic < 50) {
+			fire.GetComponent<SpriteRenderer> ().color = Color.red;
+		}
+		if (magic >= 50) {
+			fire.GetComponent<SpriteRenderer> ().color = Color.blue;
+		}
+	}
+
+
+
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "Wall") {
@@ -194,64 +221,9 @@ public class PlayerController : MonoBehaviour
 		}
 
 		if (collidedObject.gameObject.tag == "Enemy") {
-			currentHP -= 1;
+			currentHP -= (collidedObject.gameObject.GetComponent<Enemy>().attack1Damage - def);
 			pos = old;
 		}
-	
-
-		/**
-		float x = transform.position.x;
-		float y = transform.position.y;
-		float z = transform.position.z;
-
-		if ((int)(x + 0.5) > (int)x && x > 0)
-			x = (int)x + 0.5f;
-		else if ((int)(x - 0.5) < (int)x && x < 0)
-			x = (int)x - 0.5f;
-		else
-			x = (int)x;
-
-		if ((int)(y + 0.5) > (int)y && y > 0)
-			y = (int)y + 0.5f;
-		else if ((int)(y - 0.5) < (int)y && y < 0)
-			y = (int)y - 0.5f;
-		else
-			y = (int)y;
-
-		z = 0f;
-
-		Vector3 away = new Vector3(x, y, z);
-		pos = away;
-		**/
-	}
-
-	public struct Attack {
-
-		private int damage;
-		private int range;
-		private string name;
-
-		public Attack(int damage, int range, string name) {
-			this.damage = damage;
-			this.range = range;
-			this.name = name;
-		}
-
-		public int getDamage()
-		{
-			return damage;
-		}
-
-		public int getRange()
-		{
-			return range;
-		}
-
-		public string getName()
-		{
-			return name;
-		}
-
 	}
 
 }

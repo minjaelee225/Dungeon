@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LoadNewArea : MonoBehaviour {
 	
-	GameManager gm;
+	levelManager lm;
 
 	// Use this for initialization
 	void Start () {
-		gm = FindObjectOfType<GameManager> ();
+		lm = FindObjectOfType<levelManager> ();
 	}
 	
 	// Update is called once per frame
@@ -20,11 +20,11 @@ public class LoadNewArea : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag == "Player") 
 		{
-			gm.level += 1;
-			if (gm.level % 3 == 0) {
+			lm.level += 1;
+			if (lm.level % 10 == 0) {
 				SceneManager.LoadScene (2);
 			} else {
-				SceneManager.LoadScene (0);
+				SceneManager.LoadScene (1);
 			}
 		}
 	}
