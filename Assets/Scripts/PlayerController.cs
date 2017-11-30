@@ -6,6 +6,12 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
+	public AudioClip footstep;
+	public AudioClip fireball;
+	public AudioClip sword;
+	public AudioClip hurt;
+
+
 	public float speed = 2.0f;
 	Vector3 pos;
 	Vector3 old;
@@ -84,6 +90,8 @@ public class PlayerController : MonoBehaviour
 			up = true;
 			down = false;
 			pos += (Vector3.up) / 1;
+
+			AudioSource.PlayClipAtPoint(footstep, transform.position, 4f);
 	
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow) && tr.position == pos)
@@ -101,6 +109,8 @@ public class PlayerController : MonoBehaviour
 			up = false;
 			down = false;
 			pos += (Vector3.right) / 1;
+
+			AudioSource.PlayClipAtPoint(footstep, transform.position, 4f);
 		
 		}
 		else if (Input.GetKeyDown(KeyCode.DownArrow) && tr.position == pos)
@@ -119,6 +129,8 @@ public class PlayerController : MonoBehaviour
 			down = true;
 
 			pos += (Vector3.down) / 1;
+
+			AudioSource.PlayClipAtPoint(footstep, transform.position, 4f);
 		
 		}
 		else if (Input.GetKeyDown(KeyCode.LeftArrow) && tr.position == pos)
@@ -137,6 +149,8 @@ public class PlayerController : MonoBehaviour
 			down = false;
 
 			pos += (Vector3.left) / 1;
+
+			AudioSource.PlayClipAtPoint(footstep, transform.position, 4f);
 		}
 
 		else if (Input.GetKeyDown(KeyCode.Space))
@@ -158,6 +172,7 @@ public class PlayerController : MonoBehaviour
 				swordD.transform.position = pos + Vector3.down;
 				swordD.GetComponent<SwordScript> ().init (atk);
 			}
+			AudioSource.PlayClipAtPoint(sword, transform.position, 0.13f);
 
 		}
 
@@ -184,7 +199,7 @@ public class PlayerController : MonoBehaviour
 				fireD.transform.position = pos;
 				fireD.GetComponent<FireBallScript> ().init (magic, new Vector2(0, -1));
 			}
-
+			AudioSource.PlayClipAtPoint(fireball, transform.position, 0.2f);
 		}
 
 		transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
@@ -194,6 +209,7 @@ public class PlayerController : MonoBehaviour
 	{
 		//Restart the game on death
 		SceneManager.LoadScene (0);
+	
 	}
 
 	void enhanceFire(GameObject fire)
@@ -223,6 +239,7 @@ public class PlayerController : MonoBehaviour
 		if (collidedObject.gameObject.tag == "Enemy") {
 			currentHP -= (collidedObject.gameObject.GetComponent<Enemy>().attack1Damage - def);
 			pos = old;
+			AudioSource.PlayClipAtPoint(hurt, transform.position, 0.3f);
 		}
 	}
 
