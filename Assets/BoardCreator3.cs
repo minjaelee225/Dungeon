@@ -459,6 +459,7 @@ public class BoardCreator3: MonoBehaviour
 		Instantiate(exit, Pos, Quaternion.identity);
 	}
 
+
 	void InstantiateEnemy()
 	{
 		for (int i = 0; i < enemyCount; i++)
