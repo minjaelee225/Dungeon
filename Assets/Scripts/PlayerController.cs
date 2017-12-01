@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
 	void Die() 
 	{
 		//Restart the game on death
-		SceneManager.LoadScene (0);
+		SceneManager.LoadScene (1);
 	
 	}
 
@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		if (collidedObject.gameObject.tag == "Enemy") {
-			currentHP -= (collidedObject.gameObject.GetComponent<Enemy>().attack1Damage - def);
+			currentHP -= collidedObject.gameObject.GetComponent<Enemy>().attack1Damage;
 			pos = old;
 			AudioSource.PlayClipAtPoint(hurt, transform.position, 0.3f);
 		}
