@@ -13,7 +13,7 @@ public class magicItem : Items {
 
 	public override void improveStat()
 	{
-		stats.magic += 2;
+		stats.magic += 5;
 		AudioSource.PlayClipAtPoint (pickup, transform.position);
 	}
 }
