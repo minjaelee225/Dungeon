@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
+	AudioClip hit;
 	public float speed = 2.0f;
 	public float attack1Range = 0.1f;
 	public int attack1Damage = 1;
@@ -82,6 +83,7 @@ public class Enemy : MonoBehaviour {
 
 		} else {
 			player.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver); 
+			AudioSource.PlayClipAtPoint (hit, transform.position);
 		}
 	}
 
