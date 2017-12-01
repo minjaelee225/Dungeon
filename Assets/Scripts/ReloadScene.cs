@@ -9,7 +9,7 @@ public class ReloadScene : MonoBehaviour {
 	void Update () {
 		if (Input.GetKey(KeyCode.R))
 		{
-			SceneManager.LoadScene (1);
+			SceneManager.LoadScene (0);
 		}
 	}
 }

@@ -21,10 +21,10 @@ public class LoadNewArea : MonoBehaviour {
 		if (other.gameObject.tag == "Player") 
 		{
 			lm.level += 1;
-			if (lm.level % 5 == 0) {
-				SceneManager.LoadScene (3);
-			} else {
+			if (lm.level % 10 == 0) {
 				SceneManager.LoadScene (2);
+			} else {
+				SceneManager.LoadScene (1);
 			}
 		}
 	}

@@ -37,18 +37,6 @@ public class BoardCreator2 : MonoBehaviour
 	public GameObject[] northWall;
 	public GameObject[] eastWall;
 	public GameObject[] southWall;
-	public GameObject[] wallcornerwest_ne; 
-	public GameObject[] wallcornerwest_se;
-	public GameObject[] wallcornersouth_nw;
-	public GameObject[] wallcornersouth_ne;
-	public GameObject[] wallcornernorth_se;
-	public GameObject[] wallcornernorth_sw;
-	public GameObject[] wallcornereast_nw;
-	public GameObject[] wallcornereast_sw;
-	public GameObject[] doublecornerne;
-	public GameObject[] doublecornernw;
-	public GameObject[] doublecornerse;
-	public GameObject[] doublecornersw;
 	public GameObject[] blockOff;
 	public GameObject player;
 	public GameObject[] enemy;
@@ -277,88 +265,40 @@ public class BoardCreator2 : MonoBehaviour
 
 					// ... instantiate a wall over the top.
 					if (!west && east && north && south) {
-						if (ne) {
-							InstantiateFromArray(wallcornerwest_ne, i, j);
-						}
-						else if (se) {
-							InstantiateFromArray(wallcornerwest_se, i, j);
-						}
-						else {
-							InstantiateFromArray(westWall, i, j);
-						}
+						InstantiateFromArray(westWall, i, j);
 					}
 					else if (west && !east && !north && !south) {
 						InstantiateFromArray(eStop, i, j);
 					}
 					else if (west && !east && north && south) {
-						if (sw) {
-							InstantiateFromArray(wallcornereast_sw, i, j);
-						}
-						else if (nw) {
-							InstantiateFromArray(wallcornereast_nw, i, j);
-						}
-						else {
-							InstantiateFromArray(eastWall, i, j);
-						}
+						InstantiateFromArray(eastWall, i, j);
 					}
 					else if (!west && east && !north && !south) {
 						InstantiateFromArray(wStop, i, j);
 					}
 					else if (west && east && !north && south) {
-						if (se) {
-							InstantiateFromArray(wallcornernorth_se, i, j);
-						}
-						else if (sw) {
-							InstantiateFromArray(wallcornernorth_sw, i, j);
-						}
-						else {
-							InstantiateFromArray (northWall, i, j);
-						}
+						InstantiateFromArray (northWall, i, j);
 					}
 					else if (!west && !east && !north && south) {
 						InstantiateFromArray (nStop, i, j);
 					}
 					else if (west && east && north && !south) {
-						if (ne) {
-							InstantiateFromArray(wallcornersouth_ne, i, j);
-						}
-						else if (nw) {
-							InstantiateFromArray(wallcornersouth_nw, i, j);
-						}
-						else {
-							InstantiateFromArray(southWall, i, j);
-						}
+						InstantiateFromArray(southWall, i, j);
 					}
 					else if (!west && !east && north && !south) {
 						InstantiateFromArray (sStop, i, j);
 					}
 					else if (west && !east && north && !south) {
-						if (nw) {
-							InstantiateFromArray (doublecornernw, i, j);
-						} else {
-							InstantiateFromArray (seCorner, i, j);
-						}
+						InstantiateFromArray (seCorner, i, j);
 					}
 					else if (!west && east && north && !south) {
-						if (ne) {
-							InstantiateFromArray (doublecornerne, i, j);
-						} else {
-							InstantiateFromArray (swCorner, i, j);
-						}
+						InstantiateFromArray (swCorner, i, j);
 					}
 					else if (!west && east && !north && south) {
-						if (se) {
-							InstantiateFromArray (doublecornerse, i, j);
-						} else {
-							InstantiateFromArray (nwCorner, i, j);
-						}
+						InstantiateFromArray (nwCorner, i, j);
 					}
 					else if (west && !east && !north && south) {
-						if (sw) {
-							InstantiateFromArray (doublecornersw, i, j);
-						} else {
-							InstantiateFromArray (neCorner, i, j);
-						}
+						InstantiateFromArray (neCorner, i, j);
 					}
 					else if (west && east && !north && !south) {
 						InstantiateFromArray (hDoublewall, i, j);
@@ -388,6 +328,7 @@ public class BoardCreator2 : MonoBehaviour
 			}
 		}
 	}
+
 
 	void InstantiateOuterWalls ()
 	{
