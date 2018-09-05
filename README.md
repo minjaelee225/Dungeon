@@ -1,5 +1,5 @@
 # MysteryDungeon
-This is the repository for the dungeon crawler game for the UC Berkeley Game Development Course
+This is the repository for the dungeon crawler game
 
 Git Instructions
 
@@ -7,7 +7,7 @@ NOTE: Wherever double quotes appear, please use the name of your choice WITHOUT 
 
 1) Make an empty directory in your folder of choice, using mkdir "YOUR FOLDER NAME"
 2) Enter the folder using cd "YOUR FOLDER NAME"
-3) Add the remote: git remote add origin https://github.berkeley.edu/roshan-krishnan/MysteryDungeon
+3) Add the remote: git remote add origin https://github.com/minjaelee225/Dungeon
 4) Enter your credentials
 5) Pull code from the remote: git pull origin master
 
