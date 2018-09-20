@@ -1,7 +1,7 @@
 # MysteryDungeon
-This is the repository for the dungeon crawler game
+This is the repository for the dungeon crawler game Mystery Dungeon, but Better
 
-Git Instructions
+# Git Instructions
 
 NOTE: Wherever double quotes appear, please use the name of your choice WITHOUT the quotes
 
@@ -32,3 +32,6 @@ You can merge branches with the following command:
 2) Check for differences: git diff If there are conflicts between the branches, the files affected will be shown.
 3) Commit as usual: git commit -a
 4) You can now delete your branch: git branch -d "YOUR BRANCH NAME"
+
+# Summary
+Traverse through a dungeon filled with evil slimes while playing as the hero Nyan to take down the Evil Hydra.
